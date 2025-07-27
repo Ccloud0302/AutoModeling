@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this repo, please cite it as below."
+authors:
+  - family-names: Haoran
+    given-names: Shi
+    orcid: https://orcid.org/0000-0003-4268-022X
+title: "Modeling"
+version: 1.1
+identifiers:
+  - type: doi
+    value: none
+date-released: 2025-07-01
