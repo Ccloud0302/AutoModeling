@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="UIMDocumentType">
+		<xs:annotation>
+			<xs:documentation>The UIMDocumentType is the top level type for UIM model.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UIMPId" type="xs:string" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The UUId for the UIMDocument identifying it uniquely.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UIMModel" type="UIMModelType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Meta-Model.	</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The required n attribute is the number of actual component sets in this list.			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="UIMModelType">
+		<xs:annotation>
+			<xs:documentation>The UIMModelType is the type of model.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UIMGrossaryTag" type="UIMGlossaryTagType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The tag describes the model in a standardized way.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UIMBoundedContextSubGroup" type="UIMBoundedContextSubGroupType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The BoundedContextSubGroup of the model.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of the model.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation> The name of the model.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="UIMGlossaryTagType">
+		<xs:annotation>
+			<xs:documentation>The GlossaryTagType is the type of grossary-tag.</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="UIMBoundedContextSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The UIMBoundedContextSubGroupType is the type for UIMBoundedContextSubGroup.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UIMBoundedContext" type="UIMBoundedContextType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The BoundedContexts in the model.	</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of bounded contexts elements.	</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="UIMBoundedContextType">
+		<xs:annotation>
+			<xs:documentation>The UIMBoundedContextType is the type of bounded context.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EntitySubGroup" type="EntitySubGroupType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The entities in the bounded context.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CommunicationSubGroup" type="CommunicationSubGroupType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The communication with the other bounded context.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GlossaryClass" type="GlossaryClassType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The class of the entity in the bounded context.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of bounded context.          </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of bounded context.			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="BoundedContextType" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="CommunicationSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The CommunicationSubGroupType is the type of communication sub group.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Class" type="CommunicationType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The communication type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of class elements.	</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CommunicationType">
+		<xs:annotation>
+			<xs:documentation>The CommunicationType is the type for communication.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TriggerAction" type="ActionType">
+				<xs:annotation>
+					<xs:documentation>The action triggered by a communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CauseContext" type="UIMBoundedContextType">
+				<xs:annotation>
+					<xs:documentation>The context caused by a communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CauseEvent" type="EventType">
+				<xs:annotation>
+					<xs:documentation>The event caused by a communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of communication.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of communication.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The type of communication.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="GlossaryClassType">
+		<xs:annotation>
+			<xs:documentation>The GlossaryClassType is the type of grossary-class.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ClassSubGroup" type="ClassSubGroupType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The class of the entities.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelationshipSubGroup" type="RelationshipSubGroupType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The relationshipType among the entities.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ClassSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The ClassSubGroupType is the type of ClassSubGroup.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Class" type="ClassType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The class type.	</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of class elements.	</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RelationshipSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The RelationshipSubGroupType is the type of RelationshipSubGroup</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Class" type="RelationshipType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The class relationship.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of relationship elements.	</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ClassType">
+		<xs:annotation>
+			<xs:documentation>The ClassType is the type for class</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AttributeSubGroup" type="ClassAttributeSubGroupType">
+				<xs:annotation>
+					<xs:documentation>The attribute sub group of the class.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActionSubGroup" type="ClassActionSubGroupType">
+				<xs:annotation>
+					<xs:documentation>The action sub group of the class.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subClassOf" type="ClassType">
+				<xs:annotation>
+					<xs:documentation>The sub class of the class.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of class</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of class</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The type of class.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RelationshipType">
+		<xs:annotation>
+			<xs:documentation>The RelationshipType is the type for relationship</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="domains" type="ClassType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The domains of relationship.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ranges" type="ClassType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The ranges of relationship.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subRelationshipOf" type="ClassType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The sub relationship.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of relationship</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of relationship</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ClassAttributeSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The ClassAttributeSubGroupType is the type of AttributeSubGroup of class.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ClassAttribute" type="ClassAttributeType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The class attribute.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of relationship elements.	</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ClassActionSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The ClassActionSubGroupType is the type of ActionSubGroup of class.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ClassAction" type="ClassActionType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The class action</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of relationship elements.	</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ClassAttributeType">
+		<xs:annotation>
+			<xs:documentation>The ClassAttributeType is the type for class attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of class attribute</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ClassActionType">
+		<xs:annotation>
+			<xs:documentation>The ClassActionType is the type of class action</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="parameterList" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:group ref="parametersOfClassAction"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of class action</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:group name="parametersOfClassAction">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The name of parametersOfClassAction.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="EntitySubGroupType">
+		<xs:annotation>
+			<xs:documentation>The EntitySubGroupType is the type for entity sub group.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Entity" type="EntityType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The entities in a bounded context.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of entities elements.	</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EntityType">
+		<xs:annotation>
+			<xs:documentation>The EntityType is the type of the entity</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HasRelationShip" type="RelationshipSubGroupType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The relationship of an entity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Attributes" type="EntityAttributesSubGroup" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The attributes of entity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UserAttributes" type="EntityUserAttributesSubGroup" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The optional attributes element contains user define attributes (typified, binary array, or XML structured).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StateFlowSubGroup" type="StateFlowSubGroupType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The stateflow sub group of the entity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EventSubGroup" type="EventSubGroupType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The event sub group of the entity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of entity.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of entity.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The type of entity.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EntityAttributesSubGroup">
+		<xs:annotation>
+			<xs:documentation>The EntityAttributesSubGroup is the type of attributes of an entity</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EntityAttribute" type="EntityAttributeType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The entity attribute.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of relationship elements.	</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EntityAttributeType">
+		<xs:annotation>
+			<xs:documentation>The EntityAttributeType is the type for entity attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="label" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The label of entity attribute</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="value" use="required">
+			<xs:annotation>
+				<xs:documentation>The value of entity attribute</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EntityUserAttributesSubGroup">
+		<xs:annotation>
+			<xs:documentation>The EntityUserAttributesSubGroup is the type of user attributes of an entity</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EntityUserAttribute" type="EntityUserAttributeType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The entity attribute.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of relationship elements.	</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EntityUserAttributeType">
+		<xs:annotation>
+			<xs:documentation>The EntityUserAttributeType is the type for entity user attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="label" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The label of entity user attribute</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="value" use="required">
+			<xs:annotation>
+				<xs:documentation>The value of entity user attribute</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="StateFlowSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The StateFlowSubGroupType is the type for state flow sub group.	</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StateFlow" type="StateFlowType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The StateFlow of the state flow of an entity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of stateflows elements.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="StateFlowType">
+		<xs:annotation>
+			<xs:documentation>The StateFlowType is the type of state flow.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StateSubGroup" type="StateSubGroupType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The state subgroup of stateflow.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of stateflow.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of stateflow.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute ref="mode" use="required">
+			<xs:annotation>
+				<xs:documentation>The mode of stateflow.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CommandSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The CommandSubGroup is the type for commandsubgroup.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Command" type="CommandType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The commands in the stateflow.	</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of command elements.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CommandType">
+		<xs:annotation>
+			<xs:documentation>The CommandType is the type for Command.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of command.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of command.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="unit" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The unit of command.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="value" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The value of command.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="StateSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The StateSubGroup is the type for statesubgroup.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="State" type="StateType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The states in the stateflow.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of state elements.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="StateType">
+		<xs:annotation>
+			<xs:documentation>The StateType is the type for state</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PreCommandSubGroup" type="PreCommandSubGroupType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The pre-command subgroup of state.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PostCommandSubGroup" type="PostCommandSubGroupType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The post-command subgroup of state.	</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActionSubGroup" type="ActionSubGroupType" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The action subgroup of state.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of state.		 </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of state.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The type of state.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PreCommandSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The PreCommandSubGroupType is the type for precommandsubgroup.	     </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PreCommand" type="CommandType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The precommands of state.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of precommands elements.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PostCommandSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The PostCommandSubGroupType is the type for postcommandsubgroup.     </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PostCommand" type="CommandType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The postcommands of state.   </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of postcommands elements. </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ActionSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The ActionSubGroupType is the type for actionsubgroup.	  </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Action" type="ActionType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The actions of state.			</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of actions elements.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ActionType">
+		<xs:annotation>
+			<xs:documentation>The ActionType is the type for Action.	</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ParamSubGroup" type="ParamSubGroupType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The parameter subgroup of state.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CauseEvent" type="EventType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The event which caused by the action.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of action.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of action.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="isStateContinue" type="xs:boolean" use="required">
+			<xs:annotation>
+				<xs:documentation>The state can keep?</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ParamSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The ParamSubGroup is the type for paramsubgroup.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Param" type="ParamType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The parameters of action.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of parameters elements.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ParamType">
+		<xs:annotation>
+			<xs:documentation>The ParamType is the type for Param.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of parameter.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="label" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of parameter.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The type of parameter.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="value">
+			<xs:annotation>
+				<xs:documentation>The value of parameter.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EventSubGroupType">
+		<xs:annotation>
+			<xs:documentation>The EventSubGroupType is the type for EventSubGroup.	  </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Event" type="EventType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The event of the entity.   </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="n" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The number of events elements.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EventType">
+		<xs:annotation>
+			<xs:documentation>The EventType is the type for event</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The id of event.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The name of event.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The type of event.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="cause" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Specific events caused by it.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="message" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The message of event.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="datetime" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>The datetime of event.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:attribute name="BoundedContextType">
+		<xs:annotation>
+			<xs:documentation>The type of bounded context.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="Common"/>
+				<xs:enumeration value="Core"/>
+				<xs:enumeration value="Custom"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:attribute name="mode">
+		<xs:annotation>
+			<xs:documentation>The type of mode for stateflow.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="Production"/>
+				<xs:enumeration value="Maintenance"/>
+				<xs:enumeration value="Manual"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:complexType name="BaseUncertaintyType">
+		<xs:annotation>
+			<xs:documentation>The base type of Uncertainty.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="prop" type="xs:decimal" use="required"/>
+		<xs:attribute name="times" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="UncertaintyModel">
+		<xs:annotation>
+			<xs:documentation>The type of uncertainty model.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="modelAss">
+				<xs:annotation>
+					<xs:documentation>Elements of the model associated with uncertainty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="UncertaintyType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The uncertainty type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required"/>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="des" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="UncertaintyType">
+		<xs:annotation>
+			<xs:documentation>The type of Uncertainty.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="InputUncertainty" type="InputUncertaintyType"/>
+			<xs:element name="StructuralUncertainty" type="StructuralUncertaintyType"/>
+			<xs:element name="ParameterUncertainty" type="ParameterUncertaintyType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="UncertaintyInProductionOrganizationType">
+		<xs:annotation>
+			<xs:documentation>The type of Uncertainty in production organization.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="BusinessSegmentationAndAssociation" type="BaseUncertaintyType"/>
+			<xs:element name="TaktTime" type="BaseUncertaintyType"/>
+			<xs:element name="RandomProduction" type="BaseUncertaintyType"/>
+			<xs:element name="ScenarioDiversity" type="BaseUncertaintyType"/>
+			<xs:element name="ProductionSequence" type="BaseUncertaintyType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="EnvironmentalUncertaintyType">
+		<xs:annotation>
+			<xs:documentation>The type of Environmental uncertainty.</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="StructuralUncertaintyType">
+		<xs:annotation>
+			<xs:documentation>The type of Structural Uncertainty.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="UncertaintyInProductionOrganization" type="UncertaintyInProductionOrganizationType"/>
+			<xs:element name="EnvironmentalUncertainty" type="EnvironmentalUncertaintyType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="RequirementUncertaintyType">
+		<xs:annotation>
+			<xs:documentation>The type of Requirement UncertaintyType.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="UpdateOfRequirement" type="BaseUncertaintyType"/>
+			<xs:element name="IncompleteRequirement" type="BaseUncertaintyType"/>
+			<xs:element name="UnreasonableRequirement" type="BaseUncertaintyType"/>
+			<xs:element name="AbsenceOfNon-functionalRequirements" type="BaseUncertaintyType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="SupplyUncertaintyType">
+		<xs:annotation>
+			<xs:documentation>The type of Supply UncertaintyType.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="SubstandardQuantityOrQualityOfRawMaterials" type="BaseUncertaintyType"/>
+			<xs:element name="SupplyOrpriceFluctuation" type="BaseUncertaintyType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="InputUncertaintyType">
+		<xs:annotation>
+			<xs:documentation>The type of Input Uncertainty.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="RequirementUncertainty" type="RequirementUncertaintyType"/>
+			<xs:element name="SupplyUncertainty" type="SupplyUncertaintyType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ProcessUncertaintyType">
+		<xs:annotation>
+			<xs:documentation>The type of Process Uncertainty.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="ProcessParameters" type="BaseUncertaintyType"/>
+			<xs:element name="ProcessPlanning" type="BaseUncertaintyType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="EquipmentUncertaintyType">
+		<xs:annotation>
+			<xs:documentation>The type of  Equipment Uncertainty.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="EquipmentParameters" type="BaseUncertaintyType"/>
+			<xs:element name="EquipmentStatus" type="BaseUncertaintyType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ResourceUncertaintyType">
+		<xs:annotation>
+			<xs:documentation>The type of Resource Uncertainty.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Materials" type="BaseUncertaintyType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="UncertaintyBetweenEquipmentType">
+		<xs:annotation>
+			<xs:documentation>The type of Uncertainty Between Equipment.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Relationship" type="BaseUncertaintyType"/>
+			<xs:element name="CommunicationStability" type="BaseUncertaintyType"/>
+			<xs:element name="CommunicationDataQualitys" type="BaseUncertaintyType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="UncertaintyAmongCEDType">
+		<xs:annotation>
+			<xs:documentation>The type of Uncertainty Among CED.</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="ParameterUncertaintyType">
+		<xs:annotation>
+			<xs:documentation>The type of Parameter Uncertainty.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="ProcessUncertainty" type="ProcessUncertaintyType"/>
+			<xs:element name="EquipmentUncertainty" type="EquipmentUncertaintyType"/>
+			<xs:element name="ResourceUncertainty" type="ResourceUncertaintyType"/>
+			<xs:element name="UncertaintyBetweenEquipment" type="UncertaintyBetweenEquipmentType"/>
+			<xs:element name="UncertaintyAmongCED" type="UncertaintyAmongCEDType"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>
