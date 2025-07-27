@@ -19,7 +19,7 @@ Project：微调和测试所用的数据；数据处理和测试过程中的脚�
   | LLaMA-Factory   | 0.8.3            |
   | Python          | 3.9.18           |
 
-- 910.png
+- ![image](https://github.com/Ccloud0302/AutoModeling/blob/main/910.png)
 
 - ##### 训练参数
 
